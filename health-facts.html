@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Health & Body Facts</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #fff5f7 0%, #ffe0eb 100%);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 600px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(255, 105, 180, 0.2);
+            padding: 40px;
+            text-align: center;
+        }
+
+        .header {
+            margin-bottom: 40px;
+        }
+
+        .emoji-header {
+            font-size: 60px;
+            margin-bottom: 15px;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        h1 {
+            color: #ff1493;
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: #d946a6;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .fact-box {
+            background: linear-gradient(135deg, #fff5f7 0%, #ffe0eb 100%);
+            border: 2px solid #ffb6d9;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 20px;
+            min-height: 150px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .fact-emoji {
+            font-size: 50px;
+            margin-bottom: 15px;
+        }
+
+        .fact-text {
+            color: #333;
+            font-size: 18px;
+            line-height: 1.6;
+            font-weight: 500;
+        }
+
+        .button-container {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+
+        button {
+            background: linear-gradient(135deg, #ff1493, #ff69b4);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 25px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 5px 15px rgba(255, 20, 147, 0.3);
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(255, 20, 147, 0.4);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        .emoji-decorations {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 30px;
+            font-size: 30px;
+            opacity: 0.7;
+        }
+
+        .fact-counter {
+            color: #d946a6;
+            font-size: 14px;
+            margin-top: 15px;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="emoji-header">💚💗🧬</div>
+            <h1>Health & Body Facts</h1>
+            <p class="subtitle">Learn something amazing about your body today!</p>
+        </div>
+
+        <div class="fact-box">
+            <div class="fact-emoji">💪</div>
+            <div class="fact-text" id="fact"></div>
+            <div class="fact-counter"><span id="counter">1</span> / <span id="total">20</span></div>
+        </div>
+
+        <div class="button-container">
+            <button onclick="getRandomFact()">🎲 Get New Fact</button>
+            <button onclick="location.reload()">🔄 Refresh Page</button>
+        </div>
+
+        <div class="emoji-decorations">
+            <span>🫀</span>
+            <span>🧠</span>
+            <span>👁️</span>
+            <span>👂</span>
+            <span>🦴</span>
+        </div>
+    </div>
+
+    <script>
+        const facts = [
+            { emoji: "💪", text: "Your body has 206 bones, and about half of them are located in your hands and feet!" },
+            { emoji: "🫀", text: "Your heart beats approximately 100,000 times per day, pumping about 2,000 gallons of blood!" },
+            { emoji: "🧠", text: "Your brain uses about 20% of your body's energy, despite being only 2% of your body weight." },
+            { emoji: "👁️", text: "Your eyes are the only part of your body that can see and they're about the size of ping pong balls!" },
+            { emoji: "👂", text: "Your ears can hear sounds from 20 Hz to 20,000 Hz. Dogs can hear up to 40,000 Hz!" },
+            { emoji: "🫁", text: "You breathe approximately 20,000 times per day without even thinking about it!" },
+            { emoji: "💅", text: "Your fingernails and hair grow even after you die, as your skin dries out and shrinks!" },
+            { emoji: "😋", text: "You have approximately 10,000 taste buds on your tongue, roof of mouth, and throat." },
+            { emoji: "💧", text: "About 70% of your body weight is water. In newborns, it's closer to 78%!" },
+            { emoji: "🦷", text: "Your teeth are the only part of your body that can't heal themselves." },
+            { emoji: "🧪", text: "Your body produces a new skeleton approximately every 10 years!" },
+            { emoji: "⏱️", text: "The lifespan of a red blood cell is about 120 days. Your body makes millions daily!" },
+            { emoji: "🌡️", text: "Your body temperature is highest at around 6 PM and lowest at around 3 AM." },
+            { emoji: "💇", text: "You lose between 50-100 strands of hair per day. That's completely normal!" },
+            { emoji: "🧬", text: "Your DNA contains about 3 billion base pairs. If unwound, it would stretch to Pluto and back!" },
+            { emoji: "👃", text: "You can smell around 1 trillion different scents. Your sense of smell is your most powerful sense!" },
+            { emoji: "🦴", text: "Your thighbone (femur) is stronger than concrete - it can support up to 12 times your body weight!" },
+            { emoji: "🧘", text: "When you laugh, you use about 15 facial muscles. Frowning uses only 3!" },
+            { emoji: "💤", text: "During REM sleep, you can't smell, taste, or feel pain - but you dream!" },
+            { emoji: "🏃", text: "Your muscles make up about 40% of your body weight and burn calories even at rest!" }
+        ];
+
+        let currentFactIndex = -1;
+
+        function getRandomFact() {
+            const previousIndex = currentFactIndex;
+            do {
+                currentFactIndex = Math.floor(Math.random() * facts.length);
+            } while (currentFactIndex === previousIndex && facts.length > 1);
+
+            const fact = facts[currentFactIndex];
+            document.getElementById('fact').innerHTML = fact.text;
+            document.querySelector('.fact-emoji').textContent = fact.emoji;
+            document.getElementById('counter').textContent = currentFactIndex + 1;
+            document.getElementById('total').textContent = facts.length;
+        }
+
+        // Load a random fact on page load
+        getRandomFact();
+    </script>
+</body>
+</html>
